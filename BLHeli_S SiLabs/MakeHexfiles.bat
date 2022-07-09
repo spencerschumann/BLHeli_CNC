@@ -23,11 +23,12 @@ SET KeilPath=C:\SiliconLabs\SimplicityStudio\v5\developer\toolchains\keil_8051\9
 SET ESCNO=1
 
 
-rem COMPILE ONLY THE G_H_30, for the Racerstar v2 6A 2-3s ESC
+rem COMPILE ONLY THE G_H_90, for the Racerstar v2 6A 2-3s ESC
+rem Normal FETON_DELAY is 30 for this ESC, but using 90 reduces the regenerative braking effects
 SET /A ESCNO=7
 SET ESC=G_H_
 SET MCU_48MHZ=1
-SET FETON_DELAY=30
+SET FETON_DELAY=90
 SET ESCNAME=%ESC%%FETON_DELAY%
 call :compile_code
 SET /A ESCNO+=1
