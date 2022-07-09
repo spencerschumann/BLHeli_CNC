@@ -1167,19 +1167,19 @@ ELSE
 ENDIF
 	jnc	int0_int_outside_range			; Yes - ignore pulse
 
-	; Check if below 900us (in order to ignore false pulses)
+	; Check if below 750us (in order to ignore false pulses)
 	clr	C
 	mov	A, Temp3
 IF MCU_48MHZ == 0
-	subb A, #9Ah
+	subb A, #00h
 ELSE
-	subb A, #34h
+	subb A, #00h
 ENDIF
 	mov	A, Temp4
 IF MCU_48MHZ == 0
 	subb A, #03h
 ELSE
-	subb A, #07h
+	subb A, #06h
 ENDIF
 	jnc	int0_int_check_full_range		; No - proceed
 
