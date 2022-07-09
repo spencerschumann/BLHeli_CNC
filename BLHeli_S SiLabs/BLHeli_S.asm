@@ -3556,14 +3556,14 @@ ENDIF
 	mov	Initial_Arm, #1
 	; Initializing beep
 	clr	IE_EA			; Disable interrupts explicitly
-	call wait200ms	
-	call beep_f1
+	;call wait200ms
+	;call beep_f1
+	;call wait30ms
+	;call beep_f2
+	;call wait30ms
+	;call beep_f3
 	call wait30ms
-	call beep_f2
-	call wait30ms
-	call beep_f3
-	call wait30ms
-	call	led_control
+	call led_control
 
 
 ;**** **** **** **** **** **** **** **** **** **** **** **** ****
@@ -3651,6 +3651,9 @@ ENDIF
 	subb	A, #10						
 	jnc	($+4)
 	ajmp	validate_rcp_start
+
+	; SKIP OneShot/MultiShot/DShot protocol detection
+	ajmp	init_no_signal
 
 	; Test whether signal is OneShot125
 	setb	Flags2.RCP_ONESHOT125			; Set OneShot125 flag
