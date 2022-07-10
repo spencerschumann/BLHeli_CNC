@@ -3635,7 +3635,7 @@ ENDIF
 	mov	Stall_Cnt, #0
 	; Initialize RC pulse
 	clr	Flags2.RCP_UPDATED		 	; Clear updated flag
-	call wait200ms
+	call wait30ms
 	; Clear all shot flags
 	clr	Flags2.RCP_ONESHOT125			; Clear OneShot125 flag
 	clr	Flags2.RCP_ONESHOT42			; Clear OneShot42 flag
@@ -3773,7 +3773,11 @@ validate_rcp_start:
 	; Validate RC pulse
 	call wait3ms						; Wait for new RC pulse
 	jb	Flags2.RCP_UPDATED, ($+6)		; Is there an updated RC pulse available - proceed
-	ljmp	init_no_signal					; Go back to detect input signal
+	ljmp	init_no_signal				; Go back to detect input signal
+
+	; For CNC Spindle use: Bypass arming sequence (Careful!)
+	mov	Initial_Arm, #0 				; Clear initial arm variable
+	jmp wait_for_power_on
 
 	; Beep arm sequence start signal
 	clr 	IE_EA						; Disable all interrupts
