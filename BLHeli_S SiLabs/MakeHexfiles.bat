@@ -3,7 +3,7 @@
 @ECHO ***** All Messages will be saved to MakeHex_Result.txt *****
 @ECHO ***** Start compile with any key  - CTRL-C to abort    *****
 Break ON
-rem @pause
+@pause
 DEL MakeHex_Result.txt /Q
 
 rem ***** Adapt settings to your enviroment ****
@@ -14,27 +14,14 @@ RMDIR Output
 MKDIR Output
 MKDIR Output\Hex
 SET Revision=REV16_7
-SET KeilPath=C:\SiliconLabs\SimplicityStudio\v5\developer\toolchains\keil_8051\9.60\BIN
+SET KeilPath=C:\SiliconLabs\SimplicityStudio\v5_2\developer\toolchains\keil_8051\9.60\BIN
 
 @ECHO Revision: %Revision% >> MakeHex_Result.txt
 @ECHO Path for Keil toolchain: %KeilPath% >> MakeHex_Result.txt
 @ECHO Start compile ..... >> MakeHex_Result.txt
 
+
 SET ESCNO=1
-
-
-rem COMPILE ONLY THE G_H_90, for the Racerstar v2 6A 2-3s ESC
-rem Normal FETON_DELAY is 30 for this ESC, but using 90 reduces the regenerative braking effects
-SET /A ESCNO=7
-SET ESC=G_H_
-SET MCU_48MHZ=1
-SET FETON_DELAY=90
-SET ESCNAME=%ESC%%FETON_DELAY%
-call :compile_code
-SET /A ESCNO+=1
-goto :end
-
-
 SET ESC=A_L_
 SET MCU_48MHZ=0
 call:compile
@@ -90,7 +77,6 @@ SET ESC=G_H_
 SET MCU_48MHZ=1
 call:compile
 SET /A ESCNO+=1
-goto :end
 
 SET ESC=H_L_
 SET MCU_48MHZ=0
@@ -302,5 +288,5 @@ goto :eof
 
 :end
 
-rem @pause
+@pause
 exit
